@@ -21,7 +21,7 @@ defmodule ApiReleaseDemo.Router do
   post "/hello" do
     response =
       case conn.body_params do
-        %{my_name_is: name} -> %{hello: name}
+        %{"my_name_is" => name} -> %{hello: name}
         _ -> %{hello: "stranger"}
       end
 
