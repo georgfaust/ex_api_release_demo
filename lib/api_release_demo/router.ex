@@ -6,31 +6,23 @@ defmodule ApiReleaseDemo.Router do
   plug(Plug.Parsers, parsers: [:json], pass: ["application/json"], json_decoder: Jason)
   plug(:dispatch)
 
-  get "/" do
-    send_resp(
-      conn,
-      200,
-      ~s(you can say "hello" by posting {"my_name_is": <your name>} to "/hello")
-    )
-  end
+  @index ~s(you can say "hello" by posting {"my_name_is": <your name>} to "/hello")
+  @favicon ""
 
-  get "/favicon.ico" do
-    send_resp(conn, 200, "")
-  end
+  get("/", do: send_resp(conn, 200, @index))
+  get("/favicon.ico", do: send_resp(conn, 200, @favicon))
 
   post "/hello" do
-    response =
-      case conn.body_params do
-        %{"my_name_is" => name} -> %{hello: name}
-        _ -> %{hello: "stranger"}
+    name =
+      case Map.get(conn, :body_params) do
+        %{"my_name_is" => name} -> name
+        _ -> "stranger"
       end
 
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(200, Jason.encode!(response))
+    |> send_resp(200, Jason.encode!(%{hello: name}))
   end
 
-  match _ do
-    send_resp(conn, 404, "not found.")
-  end
+  match(_, do: send_resp(conn, 404, "not found."))
 end

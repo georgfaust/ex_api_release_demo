@@ -35,8 +35,7 @@ RUN apk add --no-cache libstdc++ openssl ncurses-libs
 ENV USER="elixir"
 WORKDIR "/home/${USER}/app"
 
-RUN addgroup -g 1000 -S "${USER}" \ 
-  && adduser -s /bin/sh -u 1000 -G "${USER}" -h "/home/${USER}" -D "${USER}" && su "${USER}"
+RUN addgroup -g 1000 -S "${USER}" && adduser -s /bin/sh -u 1000 -G "${USER}" -h "/home/${USER}" -D "${USER}" && su "${USER}"
 
 USER "${USER}"
 
