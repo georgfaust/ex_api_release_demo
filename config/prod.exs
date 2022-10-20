@@ -1,3 +1,3 @@
 import Config
 
-config :api_release_demo, port: 8080
+config :api_release_demo, port: 80
