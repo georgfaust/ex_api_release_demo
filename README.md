@@ -14,6 +14,6 @@ curl -d '{"my_name_is": "Slim Shady"}' -H "Content-Type: application/json" -X PO
 ## docker
 
 ```
-sudo docker image build -t elixir/api_release_demo .
-sudo docker run elixir/api_release_demo
+docker image build -t elixir/api_release_demo .
+docker run elixir/api_release_demo
 ```
