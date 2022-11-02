@@ -7,7 +7,16 @@ defmodule ApiReleaseDemo.MixProject do
       version: "0.1.0",
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      releases: [
+        elixir_api_release_demo: [
+            applications: [api_release_demo: :permanent],
+            steps: [
+                :assemble
+            ],
+            include_erts: System.get_env("MIX_TARGET_INCLUDE_ERTS")
+        ],
+      ]
     ]
   end
 
