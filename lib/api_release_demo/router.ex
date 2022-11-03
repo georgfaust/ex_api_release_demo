@@ -6,13 +6,13 @@ defmodule ApiReleaseDemo.Router do
   plug(Plug.Parsers, parsers: [:json], pass: ["application/json"], json_decoder: Jason)
   plug(:dispatch)
 
-  @index ~s(you can say "hallo" by posting {"my_name_is": <your name>} to "/hello")
+  @index ~s(you can say "salut" by posting {"my_name_is": <your name>} to "/salut")
   @favicon ""
 
   get("/", do: send_resp(conn, 200, @index))
   get("/favicon.ico", do: send_resp(conn, 200, @favicon))
 
-  post "/hallo" do
+  post "/salut" do
     name =
       case Map.get(conn, :body_params) do
         %{"my_name_is" => name} -> name
@@ -21,7 +21,7 @@ defmodule ApiReleaseDemo.Router do
 
     conn
     |> put_resp_content_type("application/json")
-    |> send_resp(200, Jason.encode!(%{hallo: name}))
+    |> send_resp(200, Jason.encode!(%{salut: name}))
   end
 
   match(_, do: send_resp(conn, 404, "not found."))
